@@ -49,21 +49,8 @@
           </el-breadcrumb>
         </div>
         <div style="display: flex; align-items: center; gap: 12px">
-          <el-icon><Bell /></el-icon>
-          <el-dropdown trigger="click">
-            <span style="cursor: pointer; display: flex; align-items: center; gap: 5px">
-              <el-avatar :size="30" icon="UserFilled" />
-              <span>{{ userInfo.realName || userInfo.username || '用户' }}</span>
-              <el-icon><ArrowDown /></el-icon>
-            </span>
-            <template #dropdown>
-              <el-dropdown-menu>
-                <el-dropdown-item @click="logout">
-                  <el-icon><SwitchButton /></el-icon>退出登录
-                </el-dropdown-item>
-              </el-dropdown-menu>
-            </template>
-          </el-dropdown>
+          <el-avatar :size="30" icon="UserFilled" />
+          <span>{{ userInfo.realName }}</span>
         </div>
       </el-header>
       <el-main style="background-color: #f0f2f5; padding: 20px; overflow-y: auto">
@@ -74,36 +61,18 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { removeToken } from '../utils/auth'
-import { getUserInfo } from '../api/auth'
+import { ref, computed } from 'vue'
+import { useRoute } from 'vue-router'
 import {
   HomeFilled, User, Coin, Fold, Expand,
-  Bell, UserFilled, ArrowDown, SwitchButton,
-  ShoppingCart, ChatDotSquare
+  UserFilled
 } from '@element-plus/icons-vue'
 
 const route = useRoute()
-const router = useRouter()
 const isCollapse = ref(false)
-const userInfo = ref({})
+const userInfo = ref({ realName: '管理员' })
 
 const activeMenu = computed(() => route.path)
-
-onMounted(async () => {
-  try {
-    const res = await getUserInfo()
-    userInfo.value = res.data || {}
-  } catch (e) {
-    // ignore
-  }
-})
-
-function logout() {
-  removeToken()
-  router.push('/login')
-}
 </script>
 
 <style scoped>
