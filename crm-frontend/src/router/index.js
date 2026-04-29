@@ -47,6 +47,30 @@ const routes = [
         name: 'FollowUpList',
         component: () => import('../views/sales/FollowUpList.vue'),
         meta: { title: '回访记录' }
+      },
+      {
+        path: 'members',
+        name: 'MemberList',
+        component: () => import('../views/member/MemberList.vue'),
+        meta: { title: '会员管理' }
+      },
+      {
+        path: 'campaigns',
+        name: 'CampaignList',
+        component: () => import('../views/marketing/CampaignList.vue'),
+        meta: { title: '营销管理' }
+      },
+      {
+        path: 'performance',
+        name: 'Performance',
+        component: () => import('../views/employee/Performance.vue'),
+        meta: { title: '业绩排行' }
+      },
+      {
+        path: 'todos',
+        name: 'TodoList',
+        component: () => import('../views/employee/TodoList.vue'),
+        meta: { title: '待办提醒' }
       }
     ]
   }
