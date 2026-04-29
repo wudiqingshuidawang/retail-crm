@@ -1,0 +1,156 @@
+-- Retail CRM Database Initialization Script
+-- Use InnoDB, utf8mb4
+
+CREATE TABLE IF NOT EXISTS sys_user (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    real_name VARCHAR(50),
+    role VARCHAR(20) DEFAULT 'EMPLOYEE',
+    phone VARCHAR(20),
+    status TINYINT DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS customer (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    phone VARCHAR(20),
+    email VARCHAR(100),
+    gender VARCHAR(5),
+    age INT,
+    source VARCHAR(50) COMMENT '来源渠道',
+    level VARCHAR(20) DEFAULT '普通' COMMENT '客户等级:高价值/普通/沉睡',
+    owner_id BIGINT COMMENT '归属员工ID',
+    status TINYINT DEFAULT 1,
+    remark TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS customer_lead (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    customer_id BIGINT NOT NULL,
+    employee_id BIGINT COMMENT '跟进员工ID',
+    status VARCHAR(20) DEFAULT '跟进中' COMMENT '跟进中/已转化/已流失',
+    is_pool TINYINT DEFAULT 0 COMMENT '是否在公海池',
+    follow_count INT DEFAULT 0,
+    last_follow_at DATETIME,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS member (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    customer_id BIGINT NOT NULL UNIQUE,
+    card_level VARCHAR(20) DEFAULT '普通' COMMENT '普通/银卡/金卡',
+    points INT DEFAULT 0,
+    registered_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS point_record (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    member_id BIGINT NOT NULL,
+    type VARCHAR(10) NOT NULL COMMENT '获取/消耗',
+    points INT NOT NULL,
+    reason VARCHAR(200),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS marketing_campaign (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    type VARCHAR(20) COMMENT '促销/满减/新品',
+    description TEXT,
+    start_time DATETIME,
+    end_time DATETIME,
+    status VARCHAR(20) DEFAULT '进行中',
+    target_group VARCHAR(50) COMMENT '目标客群',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS coupon (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    campaign_id BIGINT,
+    name VARCHAR(100) NOT NULL,
+    discount_value DECIMAL(10,2),
+    min_amount DECIMAL(10,2) DEFAULT 0,
+    total_qty INT DEFAULT 0,
+    used_qty INT DEFAULT 0,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS coupon_record (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    coupon_id BIGINT NOT NULL,
+    customer_id BIGINT NOT NULL,
+    status VARCHAR(10) DEFAULT '未使用' COMMENT '未使用/已使用/已过期',
+    send_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    use_time DATETIME,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS sales_order (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    customer_id BIGINT NOT NULL,
+    employee_id BIGINT,
+    total_amount DECIMAL(10,2) NOT NULL,
+    status VARCHAR(20) DEFAULT '待付款' COMMENT '待付款/已付款/已退款',
+    remark TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS order_item (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    order_id BIGINT NOT NULL,
+    product_name VARCHAR(200) NOT NULL,
+    qty INT NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS follow_up (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    customer_id BIGINT NOT NULL,
+    employee_id BIGINT,
+    type VARCHAR(10) DEFAULT '回访' COMMENT '回访/投诉',
+    plan_time DATETIME,
+    actual_time DATETIME,
+    content TEXT,
+    status VARCHAR(20) DEFAULT '待处理' COMMENT '待处理/处理中/已完成',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS todo_task (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    employee_id BIGINT NOT NULL,
+    type VARCHAR(20) COMMENT '跟进/回访/活动',
+    content VARCHAR(500),
+    customer_id BIGINT,
+    deadline DATETIME,
+    status VARCHAR(10) DEFAULT '待办' COMMENT '待办/已完成',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS employee_performance (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    employee_id BIGINT NOT NULL,
+    month VARCHAR(7) COMMENT '如 2026-04',
+    sales_amount DECIMAL(12,2) DEFAULT 0,
+    new_customers INT DEFAULT 0,
+    follow_up_count INT DEFAULT 0,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Insert test admin user (password: admin123)
+INSERT INTO sys_user (username, password, real_name, role, phone) VALUES
+('admin', '$2a$10$gbTE46j3Jv1tVUd1THh7pOYCPvN7/n48c9cHUfXDu.QpUQd21q.zu', '管理员', 'ADMIN', '13800000000');
