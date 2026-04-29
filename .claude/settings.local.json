@@ -4,7 +4,15 @@
       "Bash(python3 -c ' *)",
       "Bash(git init *)",
       "Bash(git add *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(mvn --version)",
+      "Read(//usr/local/bin/**)",
+      "Bash(brew list *)",
+      "Bash(find / -name \"mvn\" -type f)",
+      "Bash(npx vite *)",
+      "Bash(kill %1)",
+      "Bash(wait %1)",
+      "Bash(npm run *)"
     ]
   }
 }
