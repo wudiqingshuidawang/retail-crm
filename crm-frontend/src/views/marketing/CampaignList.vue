@@ -121,6 +121,7 @@ async function handleDistribute(row) { try{const r=await distributeCoupons(row.i
 async function openCouponDialog(row) { currentCampaign.value=row; couponVisible.value=true; couponForm.name=''; couponForm.discountValue=0; couponForm.minAmount=0; couponForm.totalQty=100;
   try{const r1=await getCoupons(row.id); coupons.value=r1.data||[]; const r2=await getCouponStats(row.id); couponStats.value=r2.data}catch{coupons.value=[];couponStats.value=null} }
 async function handleCreateCoupon() { if(!couponForm.name){ElMessage.warning('请输入券名');return}; try{await createCoupon(currentCampaign.value.id,{...couponForm}); ElMessage.success('添加成功');
+  couponForm.name=''; couponForm.discountValue=0; couponForm.minAmount=0; couponForm.totalQty=100;
   const r1=await getCoupons(currentCampaign.value.id); coupons.value=r1.data||[]; const r2=await getCouponStats(currentCampaign.value.id); couponStats.value=r2.data }catch{} }
 
 onMounted(()=>fetchData())
