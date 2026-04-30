@@ -70,7 +70,11 @@
           <el-table-column prop="name" label="券名" />
           <el-table-column label="面额" width="80"><template #default="{r}">¥{{ r.discountValue }}</template></el-table-column>
           <el-table-column label="门槛" width="80"><template #default="{r}">¥{{ r.minAmount }}</template></el-table-column>
-          <el-table-column label="已发/总量" width="100"><template #default="{r}">{{ r.usedQty }}/{{ r.totalQty }}</template></el-table-column>
+          <el-table-column label="总量" width="70" align="center"><template #default="{r}">{{ r.totalQty }}</template></el-table-column>
+          <el-table-column label="已发" width="60" align="center"><template #default="{r}">{{ r.sentQty }}</template></el-table-column>
+          <el-table-column label="已核销" width="70" align="center">
+            <template #default="{r}"><span style="color:var(--crm-primary);font-weight:600">{{ r.usedQty }}</span></template>
+          </el-table-column>
         </el-table>
         <div style="margin-top:12px;font-size:13px" v-if="couponStats">
           <span>已发：<strong>{{ couponStats.totalSent }}</strong></span>

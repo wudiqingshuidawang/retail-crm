@@ -76,7 +76,22 @@ public class CampaignController {
     public Result<?> coupons(@PathVariable Long id) {
         var list = couponMapper.selectList(
                 new LambdaQueryWrapper<Coupon>().eq(Coupon::getCampaignId, id));
-        return Result.ok(list);
+        var result = list.stream().map(c -> {
+            Map<String, Object> m = new HashMap<>();
+            m.put("id", c.getId());
+            m.put("name", c.getName());
+            m.put("discountValue", c.getDiscountValue());
+            m.put("minAmount", c.getMinAmount());
+            m.put("totalQty", c.getTotalQty());
+            m.put("sentQty", c.getUsedQty()); // 已发数量
+            Long used = couponRecordMapper.selectCount(
+                    new LambdaQueryWrapper<CouponRecord>()
+                            .eq(CouponRecord::getCouponId, c.getId())
+                            .eq(CouponRecord::getStatus, "已使用"));
+            m.put("usedQty", used); // 已核销数量
+            return m;
+        }).collect(Collectors.toList());
+        return Result.ok(result);
     }
 
     @PostMapping("/campaigns/{id}/coupons")
