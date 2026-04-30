@@ -54,7 +54,16 @@ public class CampaignService {
         return campaignMapper.selectById(campaign.getId());
     }
 
+    @Transactional
     public void delete(Long id) {
+        // Delete coupon records for all coupons under this campaign
+        List<Coupon> coupons = couponMapper.selectList(
+                new LambdaQueryWrapper<Coupon>().eq(Coupon::getCampaignId, id));
+        for (Coupon c : coupons) {
+            couponRecordMapper.delete(
+                    new LambdaQueryWrapper<CouponRecord>().eq(CouponRecord::getCouponId, c.getId()));
+            couponMapper.deleteById(c.getId());
+        }
         campaignMapper.deleteById(id);
     }
 
