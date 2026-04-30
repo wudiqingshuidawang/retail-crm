@@ -61,6 +61,12 @@ const routes = [
         meta: { title: '营销管理' }
       },
       {
+        path: 'coupons',
+        name: 'CouponManage',
+        component: () => import('../views/marketing/CouponManage.vue'),
+        meta: { title: '优惠券管理' }
+      },
+      {
         path: 'performance',
         name: 'Performance',
         component: () => import('../views/employee/Performance.vue'),

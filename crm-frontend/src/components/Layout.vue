@@ -74,7 +74,7 @@ import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import {
   HomeFilled, User, Coin, ShoppingCart, ChatDotSquare,
-  DArrowLeft, DArrowRight, UserFilled, Star, Present, Trophy, Bell
+  DArrowLeft, DArrowRight, UserFilled, Star, Present, Trophy, Bell, Ticket
 } from '@element-plus/icons-vue'
 
 const route = useRoute()
@@ -88,6 +88,7 @@ const menuItems = [
   { path: '/orders', label: '销售管理', icon: ShoppingCart },
   { path: '/follow-ups', label: '回访记录', icon: ChatDotSquare },
   { path: '/campaigns', label: '营销管理', icon: Present },
+  { path: '/coupons', label: '优惠券管理', icon: Ticket },
   { path: '/performance', label: '业绩排行', icon: Trophy },
   { path: '/todos', label: '待办提醒', icon: Bell },
 ]

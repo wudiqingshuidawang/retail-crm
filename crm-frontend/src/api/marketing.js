@@ -8,3 +8,5 @@ export function distributeCoupons(id) { return request.post(`/campaigns/${id}/di
 export function getCouponStats(id) { return request.get(`/campaigns/${id}/coupon-stats`) }
 export function getCoupons(id) { return request.get(`/campaigns/${id}/coupons`) }
 export function createCoupon(id, data) { return request.post(`/campaigns/${id}/coupons`, data) }
+export function useCoupon(recordId) { return request.put(`/coupon-records/${recordId}/use`) }
+export function getCustomerCoupons(customerId) { return request.get(`/customers/${customerId}/coupons`) }
