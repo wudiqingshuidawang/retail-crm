@@ -98,6 +98,13 @@ public class CampaignService {
             for (Coupon coupon : coupons) {
                 if (coupon.getUsedQty() >= coupon.getTotalQty()) continue;
 
+                // Check if this customer already has this coupon (unduplicated)
+                Long existingCount = couponRecordMapper.selectCount(
+                        new LambdaQueryWrapper<CouponRecord>()
+                                .eq(CouponRecord::getCouponId, coupon.getId())
+                                .eq(CouponRecord::getCustomerId, c.getId()));
+                if (existingCount > 0) continue;
+
                 CouponRecord record = new CouponRecord();
                 record.setCouponId(coupon.getId());
                 record.setCustomerId(c.getId());

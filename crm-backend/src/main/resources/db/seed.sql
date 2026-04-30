@@ -197,11 +197,11 @@ INSERT INTO marketing_campaign (name, type, description, start_time, end_time, s
 
 -- ========== 优惠券 ==========
 INSERT INTO coupon (campaign_id, name, discount_value, min_amount, total_qty, used_qty) VALUES
-(1, '满200减50', 50.00, 200.00, 500, 128),
-(1, '满100减20', 20.00, 100.00, 1000, 356),
-(2, '高价值8折券', 0, 0, 100, 45),
-(3, '新品赠品券', 0, 1.00, 100, 23),
-(4, '回归满50减15', 15.00, 50.00, 200, 37);
+(1, '满200减50', 50.00, 200.00, 500, 6),
+(1, '满100减20', 20.00, 100.00, 1000, 4),
+(2, '高价值8折券', 0, 0, 100, 0),
+(3, '新品赠品券', 0, 1.00, 100, 0),
+(4, '回归满50减15', 15.00, 50.00, 200, 4);
 
 -- ========== 优惠券发放（抽样） ==========
 INSERT INTO coupon_record (coupon_id, customer_id, status, send_time, use_time) VALUES
