@@ -1,0 +1,26 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Java / Maven
+crm-backend/target/
+*.class
+*.jar
+*.war
+*.log
+
+# Node / Vite
+crm-frontend/node_modules/
+crm-frontend/dist/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+
+# Env
+.env
+.env.local
+.env.*.local
