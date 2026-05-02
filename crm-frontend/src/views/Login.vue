@@ -1,16 +1,21 @@
 <template>
   <div class="login-page">
     <div class="login-bg">
-      <div class="bg-grid"></div>
+      <div class="bg-grain"></div>
     </div>
+
     <div class="login-card">
       <div class="login-header">
-        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round">
-          <rect x="3" y="3" width="7" height="7" rx="1"/>
-          <rect x="14" y="3" width="7" height="7" rx="1"/>
-          <rect x="3" y="14" width="7" height="7" rx="1"/>
-          <rect x="14" y="14" width="7" height="7" rx="1"/>
-        </svg>
+        <div class="logo-mark">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="8" cy="8" r="3"/>
+            <circle cx="16" cy="8" r="2"/>
+            <circle cx="12" cy="16" r="2.5"/>
+            <path d="M10.5 9.5L14 8.5"/>
+            <path d="M9.5 11L11 14"/>
+            <path d="M15 10L13.5 14"/>
+          </svg>
+        </div>
         <h1>零售业CRM</h1>
         <p>客户关系管理平台</p>
       </div>
@@ -68,51 +73,66 @@ async function handleLogin() {
   align-items: center;
   justify-content: center;
   position: relative;
-  background: #f8fafc;
+  background: #f7f6f3;
+  overflow: hidden;
 }
+
 .login-bg {
   position: absolute;
   inset: 0;
-  overflow: hidden;
 }
-.bg-grid {
+.bg-grain {
   position: absolute;
-  inset: -50%;
+  inset: 0;
   background-image:
-    linear-gradient(rgba(37,99,235,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(37,99,235,0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-  transform: rotate(-12deg) scale(1.5);
+    radial-gradient(circle at 30% 70%, rgba(201, 168, 124, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 70% 30%, rgba(26, 26, 46, 0.03) 0%, transparent 50%);
 }
+
 .login-card {
   position: relative;
   width: 380px;
-  padding: 40px 36px;
-  background: #fff;
+  padding: 48px 40px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: 16px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 20px 60px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 .login-header {
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 36px;
+}
+.logo-mark {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 20px;
+  background: rgba(26, 26, 46, 0.04);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--crm-primary);
 }
 .login-header h1 {
-  font-size: 22px;
-  font-weight: 700;
-  color: #1e293b;
-  margin: 12px 0 4px;
-  letter-spacing: -0.01em;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin: 0 0 6px;
+  letter-spacing: 0.02em;
 }
 .login-header p {
   font-size: 13px;
-  color: #94a3b8;
+  color: #9e9eb0;
   margin: 0;
+  font-weight: 400;
 }
 .login-hint {
   text-align: center;
   font-size: 12px;
-  color: #cbd5e1;
-  margin: 16px 0 0;
+  color: #c4c4d0;
+  margin: 24px 0 0;
+  font-weight: 400;
 }
 </style>

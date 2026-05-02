@@ -80,6 +80,5 @@ onMounted(() => fetchDetail())
 .detail-name { font-size:22px; font-weight:700; color:var(--crm-text); margin:0; display:inline; }
 .detail-id { font-size:13px; color:var(--crm-text-muted); margin-left:10px; font-family:var(--crm-font-mono); }
 .detail-actions { display:flex; gap:8px; }
-.card { background:var(--crm-surface); border-radius:var(--crm-radius); border:1px solid var(--crm-border); padding:20px; }
 .card-title { font-size:14px; font-weight:600; color:var(--crm-text); margin-bottom:14px; }
 </style>

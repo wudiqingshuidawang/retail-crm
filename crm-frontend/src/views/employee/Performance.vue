@@ -36,5 +36,4 @@ onMounted(()=>fetchData())
 </script>
 
 <style scoped>
-.card { background:var(--crm-surface); border-radius:var(--crm-radius); border:1px solid var(--crm-border); padding:16px 20px; }
 </style>

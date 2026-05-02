@@ -91,6 +91,5 @@ onMounted(()=>fetchAll())
 </script>
 
 <style scoped>
-.card { background:var(--crm-surface); border-radius:var(--crm-radius); border:1px solid var(--crm-border); padding:16px 20px; }
-.text-muted { color:var(--crm-text-muted); font-size:12px; }
+.text-muted { color: var(--crm-text-muted); font-size: 12px; }
 </style>

@@ -128,7 +128,11 @@ onMounted(()=>fetchData())
 </script>
 
 <style scoped>
-.card { background:var(--crm-surface); border-radius:var(--crm-radius); border:1px solid var(--crm-border); padding:16px 20px; }
-.crm-search-card { margin-bottom:16px; padding:12px 20px 0; }
-.table-footer { display:flex; justify-content:flex-end; margin-top:16px; }
+.table-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--crm-border-subtle);
+}
 </style>
